@@ -84,7 +84,7 @@ void add_box( struct matrix * edges, struct matrix * polygons,
   add_edge(edges, x0, y1, z0, x0, y1, z1);
 
   //front
-  add_polygon(polygons, x0, y0, z0, x1, y0, z0, x1, y0, z0); //right triangle
+  add_polygon(polygons, x0, y0, z0, x1, y1, z0, x1, y0, z0); //right triangle
   add_polygon(polygons, x0, y0, z0, x0, y1, z0, x1, y1, z0);
 
   //back
