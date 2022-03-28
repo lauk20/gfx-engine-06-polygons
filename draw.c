@@ -28,6 +28,10 @@ void add_polygon( struct matrix *polygons,
                   double x0, double y0, double z0,
                   double x1, double y1, double z1,
                   double x2, double y2, double z2 ) {
+
+    add_point(polygons, x0, y0, z0);
+    add_point(polygons, x1, y1, z1);
+    add_point(polygons, x2, y2, z2);
 }
 
 /*======== void draw_polygons() ==========
@@ -92,8 +96,20 @@ void add_box( struct matrix * edges, struct matrix * polygons,
   add_polygons(polygons, x0, y0, z1, x1, y1, z1, x0, y1, z1);
 
   //top
-  add_polygons(polygons, x0, y0, z0, x1, y0, z0, x1, y0, z1); //left triangle
+  add_polygons(polygons, x0, y0, z0, x1, y0, z0, x0, y0, z1); //left triangle
   add_polygons(polygons, x1, y0, z0, x1, y0, z1, x0, y0, z1);
+
+  //right
+  add_polygons(polygons, x1, y0, z0, x1, y1, z1, x1, y0, z1); //right triangle
+  add_polygons(polygons, x1, y0, z0, x1, y1, z0, x1, y1, z1);
+
+  //left
+  add_polygons(polygons, x0, y0, z0, x0, y0, z1, x0, y1, z1); // left triangle
+  add_polygons(polygons, x0, y0, z0, x0, y1, z1, x0, y1, z0);
+
+  //bottom
+  add_polygons(polygons, x0, y1, z1, x1, y1, z1, x1, y1, z0); //left triangle
+  add_polygons(polygons, x0, y1, z0, x0, y1, z1, x1, y1, z0);
 }
 
 
