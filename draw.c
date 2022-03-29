@@ -173,6 +173,17 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
 
     } else if ((i + 1) % (steps + 1) == 0){ //right pole
 
+    } else if (i + steps >= points->lastcol){ //last rotation
+      add_polygon(polygons,
+                  points->m[0][i], points->m[1][i], points->m[2][i],
+                  points->m[0][(i + 1) % steps], points->m[1][(i + 1) % steps], points->m[2][(i + 1) % steps],
+                  points->m[0][(i + steps + 1) % steps], points->m[1][(i + steps + 1) % steps], points->m[2][(i + steps + 1) % steps]
+                );
+      add_polygon(polygons,
+                  points->m[0][i], points->m[1][i], points->m[2][i],
+                  points->m[0][(i + steps + 1) % steps], points->m[1][(i + steps + 1) % steps], points->m[2][(i + steps + 1) % steps],
+                  points->m[0][(i + steps) % steps], points->m[1][(i + steps) % steps], points->m[2][(i + steps) % steps]
+                );
     } else { // not a pole
       add_polygon(polygons,
                   points->m[0][i], points->m[1][i], points->m[2][i],
