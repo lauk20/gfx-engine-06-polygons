@@ -143,7 +143,7 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
 
   struct matrix *points = generate_sphere(cx, cy, cz, r, steps);
 
-
+  /*
   int index, lat, longt;
   int latStop, longStop, latStart, longStart;
   latStart = 0;
@@ -163,7 +163,7 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
                 points->m[1][index] + 1,
                 points->m[2][index] + 1);
     }
-  }
+  }*/
 
   steps = steps - 1;
 
