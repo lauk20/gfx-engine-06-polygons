@@ -167,6 +167,85 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
 
   steps = steps - 1;
 
+  printf("%d\n", points->lastcol);
+  int i;
+  for (i = 0; i < points->lastcol; i++){
+    if (i + steps < points->lastcol){ //NOT last rotation
+      if (i % (steps + 1) == 0){ //right pole
+        printf("right%d %d %d\n", i, i + 1, i + steps + 2);
+        if (i + steps + 2 > points->lastcol){
+          add_polygon(polygons,
+                       points->m[0][i], points->m[1][i], points->m[2][i],
+                       points->m[0][i + 1], points->m[1][i + 1], points->m[2][i + 1],
+                       points->m[0][(i + steps + 2) % (steps + 1)], points->m[1][(i + steps + 2) % (steps + 1)], points->m[2][(i + steps + 2) % (steps + 1)]
+                     );
+        } else {
+          add_polygon(polygons,
+                       points->m[0][i], points->m[1][i], points->m[2][i],
+                       points->m[0][i + 1], points->m[1][i + 1], points->m[2][i + 1],
+                       points->m[0][i + steps + 2], points->m[1][i + steps + 2], points->m[2][i + steps + 2]
+                     );
+        }
+      } else if ((i + 1 + 1) % (steps + 1) == 0){ //right before pole
+        printf("left%d %d %d\n", i, i + steps + 2, i + steps + 1);
+        add_polygon(polygons,
+                     points->m[0][i], points->m[1][i], points->m[2][i],
+                     points->m[0][i + steps + 2], points->m[1][i + steps + 2], points->m[2][i + steps + 2],
+                     points->m[0][i + steps + 1], points->m[1][i + steps + 1], points->m[2][i + steps + 1]
+                   );
+      } else if ((i + 1) % (steps + 1) == 0){ //left pole
+        //do nothing
+      } else {
+        printf("1: %d %d %d\n", i, i + 1, i + steps + 2);
+        printf("2: %d %d %d\n", i, i + steps + 2, i + steps + 1);
+        add_polygon(polygons,
+                     points->m[0][i], points->m[1][i], points->m[2][i],
+                     points->m[0][i + 1], points->m[1][i + 1], points->m[2][i + 1],
+                     points->m[0][i + steps + 2], points->m[1][i + steps + 2], points->m[2][i + steps + 2]
+                   );
+       add_polygon(polygons,
+                    points->m[0][i], points->m[1][i], points->m[2][i],
+                    points->m[0][i + steps + 2], points->m[1][i + steps + 2], points->m[2][i + steps + 2],
+                    points->m[0][i + steps + 1], points->m[1][i + steps + 1], points->m[2][i + steps + 1]
+                  );
+      }
+    } else { // LAST ROTATION
+      if (i % (steps + 1) == 0){ //right pole
+        printf("lb%d %d %d\n", i, i + 1, (i + steps + 2) % (steps + 1));
+        /*
+        add_polygon(polygons,
+                     points->m[0][i], points->m[1][i], points->m[2][i],
+                     points->m[0][i + 1], points->m[1][i + 1], points->m[2][i + 1],
+                     points->m[0][(i + steps + 2) % (steps + 1)], points->m[1][(i + steps + 2) % (steps + 1)], points->m[2][(i + steps + 2) % (steps + 1)]
+                   );*/
+      } else if ((i + 1 + 1) % (steps + 1) == 0){
+        printf("lb%d %d %d\n", i, (i + steps + 2) % (steps + 1), (i + steps + 1) % (steps + 1));
+        /*
+        add_polygon(polygons,
+                     points->m[0][i], points->m[1][i], points->m[2][i],
+                     points->m[0][(i + steps + 2) % (steps + 1)], points->m[1][(i + steps + 2) % (steps + 1)], points->m[2][(i + steps + 2) % (steps + 1)],
+                     points->m[0][(i + steps + 1) % (steps + 1)], points->m[1][(i + steps + 1) % (steps + 1)], points->m[2][(i + steps + 1) % (steps + 1)]
+                   );*/
+      } else if ((i + 1) % (steps + 1) == 0){ //left pole
+        //do nothing
+      } else {
+        printf("1loopback: %d %d %d\n", i, i + 1, (i + steps + 2) % (steps + 1));
+        printf("2loopback: %d %d %d\n", i, (i + steps + 2) % (steps + 1), (i + steps + 1) % (steps + 1));
+        add_polygon(polygons,
+                     points->m[0][i], points->m[1][i], points->m[2][i],
+                     points->m[0][i + 1], points->m[1][i + 1], points->m[2][i + 1],
+                     points->m[0][(i + steps + 2) % (steps + 1)], points->m[1][(i + steps + 2) % (steps + 1)], points->m[2][(i + steps + 2) % (steps + 1)]
+                   );
+       add_polygon(polygons,
+                    points->m[0][i], points->m[1][i], points->m[2][i],
+                    points->m[0][(i + steps + 2) % (steps + 1)], points->m[1][(i + steps + 2) % (steps + 1)], points->m[2][(i + steps + 2) % (steps + 1)],
+                    points->m[0][(i + steps + 1) % (steps + 1)], points->m[1][(i + steps + 1) % (steps + 1)], points->m[2][(i + steps + 1) % (steps + 1)]
+                  );
+      }
+    }
+  }
+
+  /*
   int i;
   for (i = 0; i < points->lastcol; i++){
     if (i % (steps + 1) == 0 || i == 0){ //left pole (actually right pole i think);
@@ -187,11 +266,11 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
     } else if ((i + 1) % (steps + 1) == 0){ //right pole
       //printf("1: %d %d %d\n", i, i + 1, i + steps + 1 + 1);
       //printf("2RP: %d %d %d\n", i, i + steps + 1 + 1, i + steps + 1);
-      /*add_polygon(polygons,
+      add_polygon(polygons,
                   points->m[0][i], points->m[1][i], points->m[2][i],
                   points->m[0][i + steps + 1 + 1], points->m[1][i + steps + 1 + 1], points->m[2][i + steps + 1 + 1],
                   points->m[0][i + steps + 1], points->m[1][i + steps + 1], points->m[2][i + steps + 1]
-                );*/
+                );
 
     } else if (i + steps >= points->lastcol){ //last rotation
       printf("1LR: %d %d %d\n", i, (i + 1) % steps, (i + steps + 1) % steps);
@@ -221,6 +300,7 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
                 );
     }
   }
+  */
 
   /*
   int i;
