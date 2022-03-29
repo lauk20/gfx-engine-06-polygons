@@ -413,6 +413,24 @@ void add_torus( struct matrix * edges, struct matrix * polygons,
                 points->m[2][index] + 1);
     }
   }
+
+  int i;
+  for (i = 0; i < points->lastcol; i++){
+    if (i + steps + 1 < points->lastcol){ //NOT LAST ROTATION
+      add_polygon(polygons,
+                  points->m[0][i], points->m[1][i], points->m[2][i],
+                  points->m[0][i + steps + 1], points->m[1][i + steps + 1], points->m[2][i + steps + 1],
+                  points->m[0][i + 1], points->m[1][i + 1], points->m[2][i + 1]
+                );
+    } else {
+      add_polygon(polygons,
+                  points->m[0][i], points->m[1][i], points->m[2][i],
+                  points->m[0][(i + steps + 1) % (steps)], points->m[1][(i + steps + 1) % steps], points->m[2][(i + steps + 1) % steps],
+                  points->m[0][(i + 1) % (steps)], points->m[1][(i + 1) % steps], points->m[2][(i + 1) % steps]
+                );
+    }
+  }
+
   free_matrix(points);
 }
 
