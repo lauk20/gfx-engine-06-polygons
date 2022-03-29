@@ -165,7 +165,7 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
     }
   }*/
 
-  steps = steps - 1;
+  //steps = steps - 1;
 
   //printf("%d\n", points->lastcol);
   int i;
