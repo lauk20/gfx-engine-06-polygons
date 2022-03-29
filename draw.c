@@ -166,6 +166,28 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
   }
 
   steps = steps - 1;
+
+  int i;
+  for (i = 0; i < points->lastcol; i++){
+    if (i % (steps + 1) == 0 || i == 0){ //left pole
+
+    } else if ((i + 1) % (steps + 1) == 0){ //right pole
+
+    } else { // not a pole
+      add_polygon(polygons,
+                  points->m[0][i], points->m[1][i], points->m[2][i],
+                  points->m[0][i + 1], points->m[1][i + 1], points->m[2][i+1],
+                  points->m[0][i + steps + 1], points->m[1][i + steps + 1], points->m[2][i + steps + 1]
+                );
+      add_polygon(polygons,
+                  points->m[0][i], points->m[1][i], points->m[2][i],
+                  points->m[0][i + steps + 1], points->m[1][i + steps + 1], points->m[2][i + steps + 1],
+                  points->m[0][i + steps], points->m[1][i + steps], points->m[2][i + steps]
+                );
+    }
+  }
+
+  /*
   int i;
   printf("%d\n", steps);
   for (i = 0; i < points->lastcol; i++){
@@ -188,6 +210,7 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
 
 
   }
+  */
   free_matrix(points);
 }
 
