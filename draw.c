@@ -48,7 +48,6 @@ void draw_polygons( struct matrix *polygons, screen s, color c ) {
     draw_line(polygons->m[0][i], polygons->m[1][i], polygons->m[0][i+1], polygons->m[1][i+1], s, c);
     draw_line(polygons->m[0][i+1], polygons->m[1][i+1], polygons->m[0][i+2], polygons->m[1][i+2], s, c);
     draw_line(polygons->m[0][i+2], polygons->m[1][i+2], polygons->m[0][i], polygons->m[1][i], s, c);
-    printf("i: %d\n", i);
   }
 }
 
@@ -140,7 +139,11 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
                  double cx, double cy, double cz,
                  double r, int steps ) {
 
+  printf("STEPS: %d\n", steps);
+
   struct matrix *points = generate_sphere(cx, cy, cz, r, steps);
+
+
   int index, lat, longt;
   int latStop, longStop, latStart, longStart;
   latStart = 0;
@@ -160,6 +163,30 @@ void add_sphere( struct matrix * edges, struct matrix * polygons,
                 points->m[1][index] + 1,
                 points->m[2][index] + 1);
     }
+  }
+
+  steps = steps - 1;
+  int i;
+  printf("%d\n", steps);
+  for (i = 0; i < points->lastcol; i++){
+    //printf("mod %d: %d\n", i, (i + 1) % steps);
+    if (((i + 1) % (steps + 1) != 0 && (i + steps + 1) % (steps + 1) != 0) || i == 0){
+      printf("1: %d %d %d %d %d\n", i, i + 1, i + steps + 1, i % steps, (i + 1) % steps);
+      add_polygon(polygons,
+                  points->m[0][i], points->m[1][i], points->m[2][i],
+                  points->m[0][i + 1], points->m[1][i + 1], points->m[2][i+1],
+                  points->m[0][i + steps + 1], points->m[1][i + steps + 1], points->m[2][i + steps + 1]);
+    }
+
+    if (i % steps != 0 && (i+1) % steps != 0 && (i - 1) % steps != 0){
+      printf("2: %d %d %d %d %d\n", i, i + steps + 1, i + steps, i % steps, (i+1)% steps);
+      add_polygon(polygons,
+                  points->m[0][i], points->m[1][i], points->m[2][i],
+                  points->m[0][i + steps + 1], points->m[1][i + steps + 1], points->m[2][i + steps + 1],
+                  points->m[0][i + steps], points->m[1][i + steps], points->m[2][i + steps]);
+    }
+
+
   }
   free_matrix(points);
 }
