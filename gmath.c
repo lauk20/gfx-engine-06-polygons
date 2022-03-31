@@ -14,7 +14,11 @@ void normalize( double *vector ) {
 
 //Return the dot porduct of a . b
 double dot_product( double *a, double *b ) {
-  return  0;
+  double result = 0;
+
+  result = a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+
+  return  result;
 }
 
 
