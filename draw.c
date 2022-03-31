@@ -422,11 +422,21 @@ void add_torus( struct matrix * edges, struct matrix * polygons,
                   points->m[0][i + steps + 1], points->m[1][i + steps + 1], points->m[2][i + steps + 1],
                   points->m[0][i + 1], points->m[1][i + 1], points->m[2][i + 1]
                 );
+      add_polygon(polygons,
+                  points->m[0][i], points->m[1][i], points->m[2][i],
+                  points->m[0][i + steps], points->m[1][i + steps], points->m[2][i + steps],
+                  points->m[0][i + steps + 1], points->m[1][i + steps + 1], points->m[2][i + steps + 1]
+                );
     } else {
       add_polygon(polygons,
                   points->m[0][i], points->m[1][i], points->m[2][i],
                   points->m[0][(i + steps + 1) % (steps)], points->m[1][(i + steps + 1) % steps], points->m[2][(i + steps + 1) % steps],
                   points->m[0][(i + 1) % (steps)], points->m[1][(i + 1) % steps], points->m[2][(i + 1) % steps]
+                );
+      add_polygon(polygons,
+                  points->m[0][i], points->m[1][i], points->m[2][i],
+                  points->m[0][(i + steps) % (steps)], points->m[1][(i + steps) % (steps)], points->m[2][(i + steps) % (steps)],
+                  points->m[0][(i + steps + 1) % (steps)], points->m[1][(i + steps + 1) % (steps)], points->m[2][(i + steps + 1) % (steps)]
                 );
     }
   }
