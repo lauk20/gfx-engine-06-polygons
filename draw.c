@@ -6,6 +6,7 @@
 #include "draw.h"
 #include "matrix.h"
 #include "math.h"
+#include "gmath.h"
 
 
 /*======== void add_polygon() ==========
@@ -44,10 +45,14 @@ void add_polygon( struct matrix *polygons,
   ====================*/
 void draw_polygons( struct matrix *polygons, screen s, color c ) {
   int i;
+  double view_vector[3] = {0, 0, 1};
   for (i = 0; i < polygons->lastcol; i = i + 3){
-    draw_line(polygons->m[0][i], polygons->m[1][i], polygons->m[0][i+1], polygons->m[1][i+1], s, c);
-    draw_line(polygons->m[0][i+1], polygons->m[1][i+1], polygons->m[0][i+2], polygons->m[1][i+2], s, c);
-    draw_line(polygons->m[0][i+2], polygons->m[1][i+2], polygons->m[0][i], polygons->m[1][i], s, c);
+    if (dot_product(calculate_normal(polygons, i), view_vector) > 0){
+      printf("drew 1 polygon\n");
+      draw_line(polygons->m[0][i], polygons->m[1][i], polygons->m[0][i+1], polygons->m[1][i+1], s, c);
+      draw_line(polygons->m[0][i+1], polygons->m[1][i+1], polygons->m[0][i+2], polygons->m[1][i+2], s, c);
+      draw_line(polygons->m[0][i+2], polygons->m[1][i+2], polygons->m[0][i], polygons->m[1][i], s, c);
+    }
   }
 }
 
@@ -75,6 +80,7 @@ void add_box( struct matrix * edges, struct matrix * polygons,
   z0 = z;
   z1 = z-depth;
 
+  /*
   //front
   add_edge(edges, x0, y0, z0, x1, y0, z0);
   add_edge(edges, x1, y0, z0, x1, y1, z0);
@@ -92,6 +98,7 @@ void add_box( struct matrix * edges, struct matrix * polygons,
   add_edge(edges, x1, y0, z0, x1, y0, z1);
   add_edge(edges, x1, y1, z0, x1, y1, z1);
   add_edge(edges, x0, y1, z0, x0, y1, z1);
+  */
 
   //front
   add_polygon(polygons, x0, y0, z0, x1, y1, z0, x1, y0, z0); //right triangle
