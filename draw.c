@@ -425,7 +425,7 @@ void add_torus( struct matrix * edges, struct matrix * polygons,
 
 
   int i;
-  for (i = 0; i < 100; i++){
+  for (i = 0; i < points->lastcol; i++){
     if (i + steps < points->lastcol || i == 0){ //NOT LAST ROTATION
       if ((i + 1) % steps == 0){
         //printf("1: %d %d %d\n", i, i + steps, i + 1);
