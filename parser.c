@@ -238,8 +238,12 @@ void parse_file ( char * filename,
     else if ( strncmp(line, "display", strlen(line)) == 0 ) {
       //printf("DISPLAY\t%s", line);
       clear_screen(s);
-      draw_lines(edges, s, c);
-      draw_polygons(polygons, s, c);
+      if (edges->lastcol > 0){
+        draw_lines(edges, s, c);
+      }
+      if (polygons->lastcol > 0){
+        draw_polygons(polygons, s, c);
+      }
       display( s );
     }//end display
 
@@ -249,8 +253,12 @@ void parse_file ( char * filename,
       *strchr(line, '\n') = 0;
       //printf("name: %s\n", line);
       clear_screen(s);
-      draw_lines(edges, s, c);
-      draw_polygons(polygons, s, c);
+      if (edges->lastcol > 0){
+        draw_lines(edges, s, c);
+      }
+      if (polygons->lastcol > 0){
+        draw_polygons(polygons, s, c);
+      }
       save_extension(s, line);
     }//end save
   }
