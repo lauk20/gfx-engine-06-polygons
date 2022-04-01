@@ -402,7 +402,7 @@ void add_torus( struct matrix * edges, struct matrix * polygons,
 
   struct matrix *points = generate_torus(cx, cy, cz, r1, r2, steps);
 
-
+  /*
   int index, lat, longt;
   int latStop, longStop, latStart, longStart;
   latStart = 0;
@@ -421,7 +421,7 @@ void add_torus( struct matrix * edges, struct matrix * polygons,
                 points->m[1][index] + 1,
                 points->m[2][index] + 1);
     }
-  }
+  }*/
 
 
   int i;
