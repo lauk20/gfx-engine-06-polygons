@@ -1,0 +1,55 @@
+torus
+250 25 0 25 200
+torus
+250 75 0 25 190
+torus
+250 125 0 25 180
+torus
+250 175 0 25 170
+torus
+250 225 0 25 160
+torus
+250 275 0 25 150
+torus
+250 325 0 25 140
+torus
+250 375 0 25 130
+torus
+250 425 0 25 120
+torus
+250 475 0 25 110
+torus
+250 525 0 25 100
+torus
+250 575 0 25 90
+torus
+250 625 0 25 80
+torus
+250 675 0 25 70
+torus
+250 725 0 25 60
+torus
+250 775 0 25 50
+torus
+250 825 0 25 40
+torus
+250 875 0 25 30
+torus
+250 925 0 25 20
+torus
+250 975 0 25 10
+torus
+250 1025 0 25 0
+ident
+move
+-250 0 0
+apply
+ident
+rotate
+x 30
+move
+500 0 0
+scale
+0.5 0.5 0
+apply
+display
